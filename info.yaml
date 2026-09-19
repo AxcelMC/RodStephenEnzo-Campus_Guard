@@ -1,48 +1,98 @@
-# Tiny Tapeout project information
 project:
-  title:        ""      # Project title
-  author:       ""      # Your name
-  discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  ""      # One line description of what your project does
-  language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
-  clock_hz:     0       # Clock frequency in Hz (or 0 if not applicable)
+  title:        "Campus Sentinel 2.0"
+  author:       "Rod Geryk Navarro, Stephen Axcel Galletes, Lorenzo Dacanay"
+  discord:      ""
+  description:  "Verilog multi-hazard emergency detection, alarm latching, and evacuation routing controller"
+  language:     "Verilog"
 
-  # How many tiles your design occupies? A single tile is about 167x108 uM.
-  tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
+  # The design uses the template's dedicated clk input.
+  # Set this to the clock frequency you will verify the design at.
+  # 10 Hz matches the clock used in the current Wokwi demonstration.
+  clock_hz:     10
 
-  # Your top module name must start with "tt_um_". Make it unique by including your github username:
-  top_module:  "tt_um_example"
+  # Start with the smallest tile allocation.
+  # This design is relatively small: a 2-bit FSM plus combinational logic.
+  tiles: "1x1"
 
-  # List your project's source files here.
-  # Source files must be in ./src and you must list each source file separately, one per line.
-  # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
+  # IMPORTANT:
+  # Replace YOUR_GITHUB_USERNAME with your actual GitHub username.
+  # Tiny Tapeout requires the top module name to begin with tt_um_.
+  top_module: "tt_um_YOUR_GITHUB_USERNAME_campus_sentinel"
+
+  # RTL source file located inside ./src
   source_files:
     - "project.v"
 
-# The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
-# This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
+
+# ============================================================
+# PINOUT
+# ============================================================
+#
+# Dedicated inputs:
+#
+# ui[0] = Smoke detector
+# ui[1] = Motion detector
+# ui[2] = Door/security detector
+# ui[3] = Panic/emergency input
+# ui[4] = System reset
+# ui[5] = Alarm acknowledge
+#
+# ui[6] and ui[7] are currently reserved for future expansion.
+#
+# The FSM clock uses the dedicated Tiny Tapeout `clk` input,
+# NOT one of the ui[] pins.
+#
+# Dedicated outputs:
+#
+# uo[0] = SAFE
+# uo[1] = WARNING
+# uo[2] = CRITICAL
+# uo[3] = EVACUATE
+# uo[4] = BUZZER
+# uo[5] = EXIT A
+# uo[6] = EXIT B
+# uo[7] = EXIT C
+#
+# Bidirectional pins are currently unused.
+# ============================================================
+
 pinout:
-  # Inputs
-  ui[0]: ""
-  ui[1]: ""
-  ui[2]: ""
-  ui[3]: ""
-  ui[4]: ""
-  ui[5]: ""
+
+  # ----------------------------------------------------------
+  # INPUTS
+  # ----------------------------------------------------------
+
+  ui[0]: "Smoke"
+  ui[1]: "Motion"
+  ui[2]: "Door"
+  ui[3]: "Panic"
+  ui[4]: "Reset"
+  ui[5]: "Ack"
   ui[6]: ""
   ui[7]: ""
 
-  # Outputs
-  uo[0]: ""
-  uo[1]: ""
-  uo[2]: ""
-  uo[3]: ""
-  uo[4]: ""
-  uo[5]: ""
-  uo[6]: ""
-  uo[7]: ""
 
-  # Bidirectional pins
+  # ----------------------------------------------------------
+  # OUTPUTS
+  # ----------------------------------------------------------
+
+  uo[0]: "Safe"
+  uo[1]: "Warning"
+  uo[2]: "Critical"
+  uo[3]: "Evacuate"
+  uo[4]: "Buzzer"
+  uo[5]: "RouteA"
+  uo[6]: "RouteB"
+  uo[7]: "RouteC"
+
+
+  # ----------------------------------------------------------
+  # BIDIRECTIONAL PINS
+  #
+  # Campus Sentinel currently does not require bidirectional
+  # I/O, so these pins remain unused.
+  # ----------------------------------------------------------
+
   uio[0]: ""
   uio[1]: ""
   uio[2]: ""
@@ -51,6 +101,7 @@ pinout:
   uio[5]: ""
   uio[6]: ""
   uio[7]: ""
+
 
 # Do not change!
 yaml_version: 6
