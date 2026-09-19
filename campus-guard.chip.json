@@ -1,0 +1,24 @@
+{
+  "name": "Campus Guard",
+  "author": "Rod Geryk Navarro",
+  "pins": [
+    "VCC",
+    "GND",
+    "CLK",
+    "Smoke",
+    "Motion",
+    "Door",
+    "Panic",
+    "Reset",
+    "Ack",
+    "Safe",
+    "Warning",
+    "Critical",
+    "Evacuate",
+    "Buzzer",
+    "RouteA",
+    "RouteB",
+    "RouteC"
+  ],
+  "controls": []
+}

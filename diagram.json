@@ -1,0 +1,121 @@
+{
+  "version": 1,
+  "author": "Rod Geryk Navarro",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "chip-campus-guard", "id": "chip1", "top": 300, "left": 300, "attrs": {} },
+    { "type": "wokwi-slide-switch", "id": "smoke", "top": 80, "left": 20, "attrs": {} },
+    { "type": "wokwi-slide-switch", "id": "motion", "top": 80, "left": 150, "attrs": {} },
+    { "type": "wokwi-slide-switch", "id": "door", "top": 80, "left": 280, "attrs": {} },
+    { "type": "wokwi-slide-switch", "id": "panic", "top": 80, "left": 410, "attrs": {} },
+    { "type": "wokwi-slide-switch", "id": "reset", "top": 180, "left": 100, "attrs": {} },
+    { "type": "wokwi-slide-switch", "id": "ack", "top": 180, "left": 230, "attrs": {} },
+    {
+      "type": "wokwi-clock-generator",
+      "id": "clock",
+      "top": 374.4,
+      "left": 38.4,
+      "attrs": { "frequency": "10" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "safeLed",
+      "top": 500,
+      "left": 100,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "warningLed",
+      "top": 500,
+      "left": 200,
+      "attrs": { "color": "yellow" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "criticalLed",
+      "top": 500,
+      "left": 300,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "evacuateLed",
+      "top": 500,
+      "left": 400,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "routeA",
+      "top": 600,
+      "left": 150,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "routeB",
+      "top": 600,
+      "left": 250,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "routeC",
+      "top": 600,
+      "left": 350,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "buzzer",
+      "top": 500,
+      "left": 520,
+      "attrs": { "volume": "0.1" }
+    },
+    { "type": "wokwi-vcc", "id": "vcc", "top": 260, "left": 50, "attrs": {} },
+    { "type": "wokwi-gnd", "id": "gnd", "top": 320, "left": 50, "attrs": {} },
+    { "type": "wokwi-gnd", "id": "outputGnd", "top": 680, "left": 300, "attrs": {} }
+  ],
+  "connections": [
+    [ "chip1:VCC", "vcc:VCC", "red", [] ],
+    [ "chip1:GND", "gnd:GND", "black", [] ],
+    [ "clock:OUT", "chip1:CLK", "blue", [] ],
+    [ "smoke:1", "gnd:GND", "black", [] ],
+    [ "smoke:2", "chip1:Smoke", "green", [] ],
+    [ "smoke:3", "vcc:VCC", "red", [] ],
+    [ "motion:1", "gnd:GND", "black", [] ],
+    [ "motion:2", "chip1:Motion", "green", [] ],
+    [ "motion:3", "vcc:VCC", "red", [] ],
+    [ "door:1", "gnd:GND", "black", [] ],
+    [ "door:2", "chip1:Door", "green", [] ],
+    [ "door:3", "vcc:VCC", "red", [] ],
+    [ "panic:1", "gnd:GND", "black", [] ],
+    [ "panic:2", "chip1:Panic", "green", [] ],
+    [ "panic:3", "vcc:VCC", "red", [] ],
+    [ "reset:1", "gnd:GND", "black", [] ],
+    [ "reset:2", "chip1:Reset", "green", [] ],
+    [ "reset:3", "vcc:VCC", "red", [] ],
+    [ "ack:1", "gnd:GND", "black", [] ],
+    [ "ack:2", "chip1:Ack", "green", [] ],
+    [ "ack:3", "vcc:VCC", "red", [] ],
+    [ "chip1:Safe", "safeLed:A", "green", [] ],
+    [ "safeLed:C", "outputGnd:GND", "black", [] ],
+    [ "chip1:Warning", "warningLed:A", "yellow", [] ],
+    [ "warningLed:C", "outputGnd:GND", "black", [] ],
+    [ "chip1:Critical", "criticalLed:A", "red", [] ],
+    [ "criticalLed:C", "outputGnd:GND", "black", [] ],
+    [ "chip1:Evacuate", "evacuateLed:A", "red", [] ],
+    [ "evacuateLed:C", "outputGnd:GND", "black", [] ],
+    [ "chip1:RouteA", "routeA:A", "green", [] ],
+    [ "routeA:C", "outputGnd:GND", "black", [] ],
+    [ "chip1:RouteB", "routeB:A", "green", [] ],
+    [ "routeB:C", "outputGnd:GND", "black", [] ],
+    [ "chip1:RouteC", "routeC:A", "green", [] ],
+    [ "routeC:C", "outputGnd:GND", "black", [] ],
+    [ "chip1:Buzzer", "buzzer:2", "green", [] ],
+    [ "buzzer:1", "outputGnd:GND", "black", [] ],
+    [ "clock:CLK", "chip1:CLK", "green", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}
