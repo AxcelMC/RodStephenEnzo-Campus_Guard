@@ -1,20 +1,18 @@
-# Campus Sentinel 2.0
-# Tiny Tapeout IHP Cocotb Test Makefile
+# Campus Guard / Campus Sentinel
+# Tiny Tapeout IHP test Makefile
 #
-# Based on the official TinyTapeout IHP Verilog template.
+# Temporary GLS workaround:
+# ihp_physical_stubs.v provides empty simulation models for
+# physical-only filler/decap cells.
 
-# Simulator
 SIM ?= icarus
 
-# Use FST waveform output
 FST ?= -fst
 
 TOPLEVEL_LANG ?= verilog
 
-# Source directory
 SRC_DIR = $(PWD)/../src
 
-# Project source files
 PROJECT_SOURCES = project.v
 
 
@@ -30,45 +28,47 @@ VERILOG_SOURCES += $(addprefix $(SRC_DIR)/,$(PROJECT_SOURCES))
 
 
 # ============================================================
-# GATE-LEVEL SIMULATION
+# GATE LEVEL SIMULATION
 # ============================================================
 
 else
 
 SIM_BUILD = sim_build/gl
 
-# Gate-level simulation defines required by IHP models
 COMPILE_ARGS += -DGL_TEST
 COMPILE_ARGS += -DFUNCTIONAL
 COMPILE_ARGS += -DSIM
 
-# IHP SG13G2 IO-cell simulation models
+# IHP simulation libraries
 VERILOG_SOURCES += $(PDK_ROOT)/ihp-sg13g2/libs.ref/sg13g2_io/verilog/sg13g2_io.v
-
-# IHP SG13G2 standard-cell simulation models
 VERILOG_SOURCES += $(PDK_ROOT)/ihp-sg13g2/libs.ref/sg13g2_stdcell/verilog/sg13g2_stdcell.v
 
-# Generated gate-level netlist.
-# The TinyTapeout GDS action copies this file into test/
+# ------------------------------------------------------------
+# TEMPORARY WORKAROUND
+# ------------------------------------------------------------
+# Empty models for physical-only cells such as:
+#   sg13g2_decap_8
+#   sg13g2_fill_2
+#   sg13g2_fill_1
+#
+VERILOG_SOURCES += $(PWD)/ihp_physical_stubs.v
+
+# Generated gate-level netlist
 VERILOG_SOURCES += $(PWD)/gate_level_netlist.v
 
 endif
 
 
 # ============================================================
-# COMMON CONFIGURATION
+# COMMON
 # ============================================================
 
-# Allow Verilog files to include files from src/
 COMPILE_ARGS += -I$(SRC_DIR)
 
-# Tiny Tapeout simulation wrapper
 VERILOG_SOURCES += $(PWD)/tb.v
 
-# Top-level simulation module
 TOPLEVEL = tb
 
-# Cocotb test file: test.py
 COCOTB_TEST_MODULES = test
 
 
