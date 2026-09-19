@@ -1,66 +1,51 @@
+# Tiny Tapeout project information
+
 project:
-  title:        "Campus Sentinel 2.0"
-  author:       "Rod Geryk Navarro, Stephen Axcel Galletes, Lorenzo Dacanay"
-  discord:      ""
-  description:  "Verilog multi-hazard emergency detection, alarm latching, and evacuation routing controller"
-  language:     "Verilog"
+  title: "Campus Sentinel 2.0"
 
-  # The design uses the template's dedicated clk input.
-  # Set this to the clock frequency you will verify the design at.
-  # 10 Hz matches the clock used in the current Wokwi demonstration.
-  clock_hz:     10
+  author: "Rod Geryk Navarro, Stephen Axcel Galletes, Lorenzo Dacanay"
 
-  # Start with the smallest tile allocation.
-  # This design is relatively small: a 2-bit FSM plus combinational logic.
+  discord: ""
+
+  description: "Verilog multi-hazard emergency detection, alarm latching, and evacuation routing controller"
+
+  language: "Verilog"
+
+  # Nominal clock frequency used for the project.
+  clock_hz: 10
+
+  # Campus Sentinel uses a small 2-bit FSM and combinational
+  # decision/routing logic. Start with one tile.
   tiles: "1x1"
 
-  # IMPORTANT:
-  # Replace YOUR_GITHUB_USERNAME with your actual GitHub username.
-  # Tiny Tapeout requires the top module name to begin with tt_um_.
-  top_module: "tt_um_YOUR_GITHUB_USERNAME_campus_sentinel"
+  # Top-level Verilog module.
+  # This MUST exactly match the module name in src/project.v.
+  top_module: "tt_um_AxcelMC_campus_sentinel"
 
-  # RTL source file located inside ./src
+  # RTL source files located inside ./src
   source_files:
     - "project.v"
 
 
-# ============================================================
+# ================================================================
 # PINOUT
-# ============================================================
+# ================================================================
 #
-# Dedicated inputs:
+# Dedicated clock:
 #
-# ui[0] = Smoke detector
-# ui[1] = Motion detector
-# ui[2] = Door/security detector
-# ui[3] = Panic/emergency input
-# ui[4] = System reset
-# ui[5] = Alarm acknowledge
+# clk = Campus Sentinel FSM clock
 #
-# ui[6] and ui[7] are currently reserved for future expansion.
+# Dedicated active-low reset:
 #
-# The FSM clock uses the dedicated Tiny Tapeout `clk` input,
-# NOT one of the ui[] pins.
+# rst_n = Hardware reset
 #
-# Dedicated outputs:
-#
-# uo[0] = SAFE
-# uo[1] = WARNING
-# uo[2] = CRITICAL
-# uo[3] = EVACUATE
-# uo[4] = BUZZER
-# uo[5] = EXIT A
-# uo[6] = EXIT B
-# uo[7] = EXIT C
-#
-# Bidirectional pins are currently unused.
-# ============================================================
+# ================================================================
 
 pinout:
 
-  # ----------------------------------------------------------
+  # --------------------------------------------------------------
   # INPUTS
-  # ----------------------------------------------------------
+  # --------------------------------------------------------------
 
   ui[0]: "Smoke"
   ui[1]: "Motion"
@@ -72,9 +57,9 @@ pinout:
   ui[7]: ""
 
 
-  # ----------------------------------------------------------
+  # --------------------------------------------------------------
   # OUTPUTS
-  # ----------------------------------------------------------
+  # --------------------------------------------------------------
 
   uo[0]: "Safe"
   uo[1]: "Warning"
@@ -86,12 +71,12 @@ pinout:
   uo[7]: "RouteC"
 
 
-  # ----------------------------------------------------------
-  # BIDIRECTIONAL PINS
+  # --------------------------------------------------------------
+  # BIDIRECTIONAL I/O
+  # --------------------------------------------------------------
   #
-  # Campus Sentinel currently does not require bidirectional
-  # I/O, so these pins remain unused.
-  # ----------------------------------------------------------
+  # Not used by Campus Sentinel 2.0.
+  # --------------------------------------------------------------
 
   uio[0]: ""
   uio[1]: ""
